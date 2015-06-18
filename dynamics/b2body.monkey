@@ -539,6 +539,19 @@ Class b2Body
         '//m_angularVelocity += m_invI * b2Cross(point - m_sweep.c, impulse)
         m_angularVelocity += m_invI * ((point.x - m_sweep.c.x) * impulse.y - (point.y - m_sweep.c.y) * impulse.x)
     End
+	#rem
+	'/**
+	'* Apply an angular impulse.
+	'* This wakes up the body.
+	'* @param impulse as float
+	'*/
+	#end
+	Method ApplyAngularImpulse:Void(impulse:Float)
+
+		If Self.IsAwake() = False Then Self.SetAwake(True)
+    
+		Self.m_angularVelocity += Self.m_invI * impulse;
+	End Method
     #rem
     '/**
     '* Splits a body into two, preserving  properties
@@ -809,9 +822,8 @@ Class b2Body
     
     #rem
     '/**
-    '* Get the world coordinates of a point given the local coordinates.
-    '* @param localPoint a point on the body measured relative the the bodys origin.
-    '* @return the same point expressed in world coordinates.
+    '* put the world coordinates of a point given the local coordinates into the out vector.
+	'* @param localPoint a point on the body measured relative the the bodys origin.    
     '*/
     #end
     Method GetWorldPoint:Void (localPoint:b2Vec2, out:b2Vec2)
@@ -822,7 +834,24 @@ Class b2Body
         out.x += m_xf.position.x
         out.y += m_xf.position.y
     End
-    
+
+	#rem
+	'/**
+	'* Get the world coordinates of a point given the local coordinates.
+	'* @param x position of coordinate
+	'* @param y position of coordinate
+	'* @return the same point expressed in world coordinates.
+	'*/
+	#end
+	Method GetWorldPoint:b2Vec2(x:float, y:float)
+		Local A :b2Mat22 = m_xf.R
+		Local out:b2Vec2 = New b2Vec2
+		out.Set(A.col1.x * x + A.col2.x * y,
+			A.col1.y * x + A.col2.y * y)
+		out.x += m_xf.position.x
+		out.y += m_xf.position.y
+		Return out
+	End
     #rem
     '/**
     '* Get the world coordinates of a vector given the local coordinates.

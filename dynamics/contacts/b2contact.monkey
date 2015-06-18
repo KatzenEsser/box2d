@@ -76,6 +76,8 @@ Class b2Contact
     Field m_oldManifold:b2Manifold = New b2Manifold()
     
     Field m_toi:Float
+	
+	Field impulse:b2ContactImpulse
     
     #rem
     '/**
