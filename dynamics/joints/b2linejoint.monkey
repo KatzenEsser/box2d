@@ -111,6 +111,15 @@ Class b2LineJoint Extends b2Joint
     Method GetAnchorB:Void (out:b2Vec2)
         m_bodyB.GetWorldPoint(m_localAnchor2,out)
     End
+	
+	Method GetAnchorA:b2Vec2()
+		Return (m_bodyA.GetWorldPoint(m_localAnchor1.x, m_localAnchor1.y))
+	End
+    
+	'* @inheritDoc
+	Method GetAnchorB:b2Vec2()
+		Return (m_bodyB.GetWorldPoint(m_localAnchor2.x, m_localAnchor2.y))
+	End
     
     '* @inheritDoc
     Method GetReactionForce:Void (inv_dt:Float, out:b2Vec2)

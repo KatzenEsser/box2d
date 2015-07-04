@@ -834,7 +834,6 @@ Class b2Body
         out.x += m_xf.position.x
         out.y += m_xf.position.y
     End
-
 	#rem
 	'/**
 	'* Get the world coordinates of a point given the local coordinates.
